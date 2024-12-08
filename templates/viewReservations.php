@@ -1,25 +1,23 @@
 <?php
 // Database credentials
-$host = '127.0.0.1';  // Use localhost or IP
-$db = 'restaurant_reservations';  // Your database name
-$user = 'root';  // Your MySQL username (default for XAMPP is root)
-$pass = '';  // Your MySQL password (default for XAMPP is empty)
+$host = '127.0.0.1';
+$db = 'restaurant_reservations';
+$user = 'root';
+$pass = '';
 
-// Create PDO connection
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
-    exit;  // Stop the script if there's a connection error
+    exit;
 }
 
-// Fetch reservations from the database
 $query = "SELECT * FROM Reservations";
 $stmt = $pdo->query($query);
-
-$reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all reservations
+$reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,10 +26,46 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all reservations
     <title>View Reservations - Restaurant Management</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABQbWvxBzRn7Hk2XU5i5f5r9gOkK9m07V9eSTkSO2v8fgpg6e7mWk0a" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css"> <!-- Optional Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            padding-top: 30px;
+        }
+        .table th, .table td {
+            text-align: center;
+        }
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        .table-striped tbody tr:nth-child(even) {
+            background-color: #fff;
+        }
+        .btn-primary, .btn-warning, .btn-danger {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        .btn-link {
+            font-size: 16px;
+        }
+        .text-center {
+            margin-top: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <h1 class="text-center mb-4">All Reservations</h1>
 
         <!-- Show message if any -->
@@ -40,10 +74,11 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all reservations
                 <?= htmlspecialchars($_GET['message']) ?>
             </div>
         <?php endif; ?>
-        
+
+        <!-- Reservations Table -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
-                <thead class="table-dark">
+                <thead>
                     <tr>
                         <th scope="col">Reservation ID</th>
                         <th scope="col">Customer ID</th>
@@ -63,8 +98,8 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all reservations
                                 <td><?= htmlspecialchars($reservation['numberOfGuests']) ?></td>
                                 <td><?= htmlspecialchars($reservation['specialRequests']) ?></td>
                                 <td>
-                                    <a href="modify_reservation.php?id=<?= $reservation['reservationId'] ?>" class="btn btn-warning btn-sm">Modify</a>
-                                    <a href="view_reservations.php?action=cancelReservation&id=<?= $reservation['reservationId'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?')">Cancel</a>
+                                    <a href="modifyReservation.php?id=<?= $reservation['reservationId'] ?>" class="btn btn-warning btn-sm">Modify</a>
+                                    <a href="viewReservations.php?action=cancelReservation&id=<?= $reservation['reservationId'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?')">Cancel</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -77,7 +112,8 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all reservations
             </table>
         </div>
 
-        <div class="text-center mt-4">
+        <!-- Back to Home Button -->
+        <div class="text-center">
             <a href="home.php?action=home" class="btn btn-primary">Back to Home</a>
         </div>
     </div>
