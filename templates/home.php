@@ -68,8 +68,8 @@
         <h2>Welcome!</h2>
         <p>Manage your restaurant's reservations and dining experiences seamlessly with our easy-to-use portal. Use the links below to navigate the platform:</p>
         <div class="nav-links">
-            <a href="index.php?action=addReservation">Add Reservation</a>
-            <a href="index.php?action=viewReservations">View Reservations</a>
+            <a href="addReservation.php?action=addReservation">Add Reservation</a>
+            <a href="viewReservations.php?action=viewReservations">View Reservations</a>
         </div>
     </div>
     <footer>
