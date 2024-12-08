@@ -8,6 +8,10 @@ class RestaurantPortal {
         $this->db = new RestaurantDatabase();
     }
 
+    public function getDb() {
+        return $this->db;  // Getter method for accessing $db
+    }
+
     public function handleRequest() {
         $action = $_GET['action'] ?? 'home';
 
@@ -82,7 +86,6 @@ class RestaurantPortal {
         }
     }
 
-    // Function to cancel a reservation
     private function cancelReservation() {
         $reservationId = $_GET['id'] ?? null;
         if ($reservationId) {
@@ -94,7 +97,6 @@ class RestaurantPortal {
         }
     }
 
-    // Function to modify a reservation
     private function modifyReservation() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reservationId = $_POST['reservation_id'];
@@ -102,7 +104,7 @@ class RestaurantPortal {
             $numberOfGuests = $_POST['number_of_guests'];
             $specialRequests = $_POST['special_requests'];
 
-            $this->db->modifyReservation($reservationId, $reservationTime, $numberOfGuests, $specialRequests);
+            $this->db->updateReservation($reservationId, $reservationTime, $numberOfGuests, $specialRequests);  // Fixed method name here
             header("Location: index.php?action=viewReservations&message=Reservation Modified");
             exit;
         } else {
