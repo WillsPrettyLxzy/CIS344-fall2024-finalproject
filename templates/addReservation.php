@@ -94,7 +94,7 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
             <h1 class="text-center mb-4">Add a New Reservation</h1>
-            <form action="index.php?action=addReservation" method="POST">
+            <form action="viewReservations.php?action=addReservation" method="POST">
                 <div class="mb-3">
                     <label for="customer_id" class="form-label">Customer ID</label>
                     <input type="number" class="form-control" id="customer_id" name="customer_id" required>

@@ -17,7 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Update reservation in the database
     $portal->getDb()->updateReservation($reservationId, $customerId, $reservationTime, $numberOfGuests, $specialRequests);  // Use getter method for $db
-    header("Location: view_reservations.php?message=Reservation Updated");
+
+    // Redirect to view_reservations.php after update
+    header("Location: viewReservations.php?message=Reservation+Updated+Successfully");
     exit;
 }
 ?>
@@ -33,6 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Modify Reservation</h1>
+        
+        <!-- Display success message if redirected from update -->
+        <?php if (isset($_GET['message'])): ?>
+            <div class="alert alert-success">
+                <?= htmlspecialchars($_GET['message']) ?>
+            </div>
+        <?php endif; ?>
+
         <form method="POST">
             <div class="mb-3">
                 <label for="customer_id" class="form-label">Customer ID</label>

@@ -13,10 +13,17 @@ try {
     exit;
 }
 
+// Query to fetch all reservations
 $query = "SELECT * FROM Reservations";
 $stmt = $pdo->query($query);
 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+<?php if (isset($_GET['message'])): ?>
+    <div class="alert alert-success text-center" role="alert">
+        <?= htmlspecialchars($_GET['message']) ?>
+    </div>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +106,7 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?= htmlspecialchars($reservation['specialRequests']) ?></td>
                                 <td>
                                     <a href="modifyReservation.php?id=<?= $reservation['reservationId'] ?>" class="btn btn-warning btn-sm">Modify</a>
-                                    <a href="viewReservations.php?action=cancelReservation&id=<?= $reservation['reservationId'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?')">Cancel</a>
+                                    <a href="cancelReservation.php?id=<?= $reservation['reservationId'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?')">Cancel</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
