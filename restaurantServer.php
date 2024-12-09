@@ -22,6 +22,9 @@ class RestaurantPortal {
             case 'viewReservations':
                 $this->viewReservations();
                 break;
+            case 'addCustomer':  // Add case for adding a customer
+                $this->addCustomer();
+                break;
             case 'addSpecialRequest':
                 $this->addSpecialRequest();
                 break;
@@ -52,10 +55,10 @@ class RestaurantPortal {
             $specialRequests = $_POST['special_requests'];
 
             $this->db->addReservation($customerId, $reservationTime, $numberOfGuests, $specialRequests);
-            header("Location: index.php?action=viewReservations&message=Reservation Added");
+            header("Location: home.php?action=viewReservations&message=Reservation Added");
             exit;
         } else {
-            include 'templates/add_reservation.php';
+            include 'templates/addReservation.php';
         }
     }
 
@@ -64,15 +67,30 @@ class RestaurantPortal {
         include 'templates/view_reservations.php';
     }
 
+    private function addCustomer() {  // Add customer handling
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get customer info from the POST request
+            $customerName = $_POST['customer_name'];
+            $contactInfo = $_POST['contact_info'];
+
+            // Add the customer to the database
+            $this->db->addCustomer($customerName, $contactInfo);
+            header("Location: viewCustomers.php?action=viewCustomers&message=Customer Added");
+            exit;
+        } else {
+            include 'templates/addCustomers.php';  // Include a form for adding a customer
+        }
+    }
+
     private function addSpecialRequest() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reservationId = $_POST['reservation_id'];
             $specialRequests = $_POST['special_requests'];
             $this->db->addSpecialRequest($reservationId, $specialRequests);
-            header("Location: index.php?action=viewReservations&message=Special Request Added");
+            header("Location: viewReservations.php?action=viewReservations&message=Special Request Added");
             exit;
         } else {
-            include 'templates/addSpecialRequest.php';
+            include 'templates/.php';
         }
     }
 
@@ -86,11 +104,24 @@ class RestaurantPortal {
         }
     }
 
-    private function cancelReservation() {
+    // In restaurantServer.php
+    public function deleteCustomer() {
+        $customerId = $_GET['id'] ?? null;  // Get the customerId from the URL
+        if ($customerId) {
+            $this->db->deleteCustomer($customerId);  // Call the deleteCustomer method in the database class
+            header("Location: viewCustomers.php?action=viewCustomers&message=Customer Deleted");  // Redirect after deletion
+            exit;
+        } else {
+            echo "Customer ID not provided.";
+        }
+    }
+
+
+    public function cancelReservation() {
         $reservationId = $_GET['id'] ?? null;
         if ($reservationId) {
             $this->db->cancelReservation($reservationId);
-            header("Location: index.php?action=viewReservations&message=Reservation Cancelled");
+            header("Location: viewReservations.php?action=viewReservations&message=Reservation Cancelled");
             exit;
         } else {
             echo "Reservation ID not provided.";
@@ -105,13 +136,13 @@ class RestaurantPortal {
             $specialRequests = $_POST['special_requests'];
 
             $this->db->updateReservation($reservationId, $reservationTime, $numberOfGuests, $specialRequests);  // Fixed method name here
-            header("Location: index.php?action=viewReservations&message=Reservation Modified");
+            header("Location: viewReservations.php?action=viewReservations&message=Reservation Modified");
             exit;
         } else {
             $reservationId = $_GET['id'] ?? null;
             if ($reservationId) {
                 $reservation = $this->db->getReservationById($reservationId);
-                include 'templates/modify_reservation.php';
+                include 'templates/modifyReservation.php';
             } else {
                 echo "Reservation ID not provided.";
             }
@@ -122,3 +153,4 @@ class RestaurantPortal {
 // Entry point for handling requests
 $portal = new RestaurantPortal();
 $portal->handleRequest();
+?>
