@@ -38,7 +38,8 @@
         }
         .nav-links {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 10px;
             margin-bottom: 20px;
         }
         .nav-links a {
@@ -48,6 +49,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            text-align: center;
         }
         .nav-links a:hover {
             background-color: #34495e;
@@ -66,7 +68,17 @@
     </header>
     <div class="container">
         <h2>Welcome!</h2>
-        <p>Manage your restaurant's reservations and dining experiences seamlessly with our easy-to-use portal. Use the links below to navigate the platform:</p>
+        <p>Manage your restaurant's reservations, customers, and dining experiences seamlessly with our easy-to-use portal. Use the links below to navigate the platform:</p>
+        
+        <!-- Customer Management Links -->
+        <h3>Customer Management</h3>
+        <div class="nav-links">
+            <a href="addCustomers.php">Add Customer</a>
+            <a href="viewCustomers.php">View Customers</a>
+        </div>
+
+        <!-- Reservation Management Links -->
+        <h3>Reservation Management</h3>
         <div class="nav-links">
             <a href="addReservation.php?action=addReservation">Add Reservation</a>
             <a href="viewReservations.php?action=viewReservations">View Reservations</a>
