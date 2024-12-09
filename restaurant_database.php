@@ -16,9 +16,9 @@ class RestaurantDatabase {
         if ($this->connection->connect_error) {
             die("Connection failed: " . $this->connection->connect_error);
         }
-        // echo "Successfully connected to the database"; // Optionally, comment this out in production
     }
 
+    // Add a new reservation
     public function addReservation($customerId, $reservationTime, $numberOfGuests, $specialRequests) {
         $reservationTime = date('Y-m-d H:i:s', strtotime($reservationTime)); // Ensure correct format
         $stmt = $this->connection->prepare(
@@ -32,11 +32,13 @@ class RestaurantDatabase {
         $stmt->close();
     }
 
+    // Get all reservations
     public function getAllReservations() {
         $result = $this->connection->query("SELECT * FROM reservations");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    // Add a new customer
     public function addCustomer($customerName, $contactInfo) {
         $stmt = $this->connection->prepare(
             "INSERT INTO Customers (customerName, contactInfo) VALUES (?, ?)"
@@ -46,12 +48,34 @@ class RestaurantDatabase {
         $stmt->close();
     }
 
-    // New method to get all customers
+    // Get all customers
     public function getAllCustomers() {
         $result = $this->connection->query("SELECT * FROM Customers");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+     public function getCustomerById($customerId) {
+        $stmt = $this->connection->prepare("SELECT * FROM Customers WHERE customerId = ?");
+        $stmt->bind_param("i", $customerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $customer = $result->fetch_assoc();
+        $stmt->close();
+        return $customer;
+    }
+
+    // Existing methods here...
+
+    public function updateCustomer($customerId, $customerName, $contactInfo) {
+        $stmt = $this->connection->prepare(
+            "UPDATE Customers SET customerName = ?, contactInfo = ? WHERE customerId = ?"
+        );
+        $stmt->bind_param("ssi", $customerName, $contactInfo, $customerId);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // Get customer preferences by customerId
     public function getCustomerPreferences($customerId) {
         $stmt = $this->connection->prepare(
             "SELECT * FROM DiningPreferences WHERE customerId = ?"
@@ -64,6 +88,7 @@ class RestaurantDatabase {
         return $preferences;
     }
 
+    // Add or update special requests for a reservation
     public function addSpecialRequest($reservationId, $requests) {
         $stmt = $this->connection->prepare(
             "UPDATE reservations SET specialRequests = ? WHERE reservationId = ?"
@@ -73,6 +98,7 @@ class RestaurantDatabase {
         $stmt->close();
     }
 
+    // Find all reservations for a customer
     public function findReservations($customerId) {
         $stmt = $this->connection->prepare(
             "SELECT * FROM reservations WHERE customerId = ?"
@@ -85,6 +111,7 @@ class RestaurantDatabase {
         return $reservations;
     }
 
+    // Cancel a reservation by reservationId
     public function cancelReservation($reservationId) {
         $stmt = $this->connection->prepare("DELETE FROM reservations WHERE reservationId = ?");
         $stmt->bind_param("i", $reservationId);
@@ -92,6 +119,7 @@ class RestaurantDatabase {
         $stmt->close();
     }
 
+    // Get a reservation by reservationId
     public function getReservationById($reservationId) {
         $stmt = $this->connection->prepare("SELECT * FROM reservations WHERE reservationId = ?");
         $stmt->bind_param("i", $reservationId);
@@ -102,6 +130,7 @@ class RestaurantDatabase {
         return $reservation;
     }
 
+    // Update reservation details
     public function updateReservation($reservationId, $customerId, $reservationTime, $numberOfGuests, $specialRequests) {
         $reservationTime = date('Y-m-d H:i:s', strtotime($reservationTime)); // Ensure correct format
         $stmt = $this->connection->prepare(
