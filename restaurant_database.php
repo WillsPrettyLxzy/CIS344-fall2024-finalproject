@@ -46,6 +46,12 @@ class RestaurantDatabase {
         $stmt->close();
     }
 
+    // New method to get all customers
+    public function getAllCustomers() {
+        $result = $this->connection->query("SELECT * FROM Customers");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getCustomerPreferences($customerId) {
         $stmt = $this->connection->prepare(
             "SELECT * FROM DiningPreferences WHERE customerId = ?"
