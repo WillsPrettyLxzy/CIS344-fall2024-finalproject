@@ -1,5 +1,5 @@
 <?php
-require_once '../restaurant_server.php';  // Include the server file to access the portal object
+require_once '../restaurantServer.php';  // Include the server file to access the portal object
 
 // Check if the 'id' parameter is provided in the URL
 $reservationId = $_GET['id'] ?? null;

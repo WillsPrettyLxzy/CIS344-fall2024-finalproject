@@ -1,6 +1,6 @@
 <?php
 // Include the RestaurantDatabase class
-include_once '../restaurant_database.php';
+include_once '../restaurantDatabase.php';
 
 // Initialize the database connection
 $restaurantDB = new RestaurantDatabase();

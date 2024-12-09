@@ -1,5 +1,5 @@
 <?php
-require_once '../restaurant_server.php';
+require_once '../restaurantServer.php';
 
 // Fetch customer details
 $customerId = $_GET['id'] ?? null;
