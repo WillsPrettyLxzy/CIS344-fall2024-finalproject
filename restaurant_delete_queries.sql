@@ -6,9 +6,9 @@ DELETE FROM Reservations
 WHERE customerId IN (
     SELECT customerId 
     FROM Customers 
-    WHERE customerName IN ('Forrest Gump', 'Luna Lovegood')
+    WHERE customerName IN ('Thanos', 'Niko Bellic')
 );
 
 -- Delete the customers Forrest Gump and Luna Lovegood
 DELETE FROM Customers
-WHERE customerName IN ('Forrest Gump', 'Luna Lovegood');
+WHERE customerName IN ('Thanos', 'Niko Bellic');

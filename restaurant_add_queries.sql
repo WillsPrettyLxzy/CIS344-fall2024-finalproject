@@ -21,11 +21,11 @@ CREATE TABLE IF NOT EXISTS Reservations (
 -- 3. Insert Test Data into Customers
 INSERT INTO Customers (customerName, contactInfo) 
 VALUES 
-('Forrest Gump', 'forrest.gump@example.com'),
-('Luna Lovegood', 'luna.lovegood@example.com');
+('Thanos', 'perfectlybalanced@gmail.com'),
+('Niko Bellic', 'wanttogobowling@gmail.com');
 
 -- 4. Insert Test Data into Reservations
 INSERT INTO Reservations (customerId, reservationTime, numberOfGuests, specialRequests) 
 VALUES 
-(1, '2024-12-20 19:30:00', 5, 'Celebrating a graduation, needs extra chairs'),
+(1, '2024-12-20 19:30:00', 5, 'Celebrating a win, needs extra chairs'),
 (2, '2024-12-22 18:45:00', 3, 'Quiet area, prefers soft lighting');

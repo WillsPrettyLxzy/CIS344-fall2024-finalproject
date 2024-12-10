@@ -63,9 +63,9 @@ END $$
 DELIMITER ;
 
 INSERT INTO Customers (customerName, contactInfo) VALUES
-('John Doe', 'john.doe@example.com'),
-('Jane Smith', 'jane.smith@example.com'),
-('Alice Johnson', 'alice.johnson@example.com');
+('John Wick', 'notjustadog@gmail.com'),
+('Batman', 'vengeanceandthenight@gmail.com'),
+('Goku', 'itsmegoku@gmail.com');
 
 INSERT INTO Reservations (customerId, reservationTime, numberOfGuests, specialRequests) VALUES
 (1, '2024-12-10 18:30:00', 4, 'Window seat'),
