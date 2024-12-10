@@ -91,7 +91,7 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th scope="col">Customer ID</th>
                         <th scope="col">Reservation Time</th>
                         <th scope="col">Number of Guests</th>
-                        <th scope="col">Special Requests</th>
+                        <th scope="col">Preferencecs</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>

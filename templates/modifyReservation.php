@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="number" class="form-control" id="number_of_guests" name="number_of_guests" value="<?= htmlspecialchars($reservation['numberOfGuests']) ?>" required>
             </div>
             <div class="mb-3">
-                <label for="special_requests" class="form-label">Special Requests</label>
+                <label for="special_requests" class="form-label">Preferences</label>
                 <textarea class="form-control" id="special_requests" name="special_requests"><?= htmlspecialchars($reservation['specialRequests']) ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Update Reservation</button>

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?= htmlspecialchars($customer['customerName']) ?>" required>
             </div>
             <div class="mb-3">
-                <label for="contact_info" class="form-label">Contact Info</label>
+                <label for="contact_info" class="form-label">Customer Email</label>
                 <input type="text" class="form-control" id="contact_info" name="contact_info" value="<?= htmlspecialchars($customer['contactInfo']) ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">Update Customer</button>

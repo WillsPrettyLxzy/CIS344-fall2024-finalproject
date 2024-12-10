@@ -73,7 +73,7 @@ $customers = $restaurantDB->getAllCustomers();
                     <tr>
                         <th scope="col">Customer ID</th>
                         <th scope="col">Customer Name</th>
-                        <th scope="col">Contact Info</th>
+                        <th scope="col">Customer Email</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>

@@ -14,4 +14,3 @@ if ($customerId) {
     die("Customer not found.");
 }
 ?>
-
